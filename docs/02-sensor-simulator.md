@@ -1,4 +1,4 @@
-# ⚡ Sensor Simulator
+# Sensor Simulator
 
 **File:** `simulator/sensor_simulator.py`
 

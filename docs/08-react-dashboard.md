@@ -1,4 +1,4 @@
-# 🖥️ React Dashboard
+# React Dashboard
 
 **Files:**
 - `frontend/src/App.jsx` — Main layout + polling logic
@@ -300,10 +300,10 @@ When served through nginx (in Docker), the nginx config proxies `/api/*` request
 
 ```
 ┌────────────────────────────────────────────────────────┐
-│  ⚡ Smart Grid Optimization    ● Live  AI Model Active │  Header
+│  Smart Grid Optimization       Live  AI Model Active │  Header
 ├────────────────────────────────────────────────────────┤
 │                                                        │
-│  📈 Demand Overview    Total: 5,420 kW                │
+│  Demand Overview    Total: 5,420 kW                   │
 │  ┌──────────────────────────────────────────────────┐ │
 │  │     Actual ━━━━    Predicted ┄┄┄┄               │ │  DemandChart
 │  │  kW                                              │ │
@@ -313,11 +313,11 @@ When served through nginx (in Docker), the nginx config proxies `/api/*` request
 │  └──────────────────────────────────────────────────┘ │
 │                                                        │
 ├────────────────────────────┬───────────────────────────┤
-│ 🗺️ Grid Topology           │ 🚨 Anomaly Alerts         │
+│  Grid Topology             │  Anomaly Alerts           │
 │ ┌─────┬─────┬─────┬─────┐ │ ┌───────────────────────┐│
-│ │ 001 │ 002 │ 003 │ 004 │ │ │ ⚠ meter_003 load spike││
-│ │ 540 │ 672 │ 890 │ 320 │ │ │ ⚠ meter_007 freq low  ││  GridMap + AlertPanel
-│ │  🟢 │  🟡 │  🔴 │  🟢 │ │ │ ⚠ meter_001 voltage   ││
+│ │ 001 │ 002 │ 003 │ 004 │ │ │ ! meter_003 load spike││
+│ │ 540 │ 672 │ 890 │ 320 │ │ │ ! meter_007 freq low  ││  GridMap + AlertPanel
+│ │ O.K.│ Warn│ Crit│ O.K.│ │ │ ! meter_001 voltage   ││
 │ ├─────┼─────┼─────┼─────┤ │ │                       ││
 │ │ 005 │ 006 │ 007 │ 008 │ │ │                       ││
 │ │ ... │ ... │ ... │ ... │ │ │                       ││

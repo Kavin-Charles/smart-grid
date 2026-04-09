@@ -1,4 +1,4 @@
-# 🐳 Docker & Infrastructure
+# Docker & Infrastructure
 
 **Files:**
 - `docker-compose.yml` — Service orchestration

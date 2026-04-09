@@ -1,4 +1,4 @@
-# 📡 MQTT Ingestion Service
+# MQTT Ingestion Service
 
 **File:** `backend/app/services/mqtt_client.py`
 

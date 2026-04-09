@@ -1,4 +1,4 @@
-# 📚 Smart Grid Optimization — Documentation
+# Smart Grid Optimization — Documentation
 
 Welcome to the documentation for the **AI Smart Grid Optimization** platform. This guide explains every component of the system, how they communicate, and how the data flows from simulated sensors all the way to the React dashboard.
 

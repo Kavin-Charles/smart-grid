@@ -1,4 +1,4 @@
-# 🧠 LSTM Demand Forecaster
+# LSTM Demand Forecaster
 
 **File:** `backend/app/models/lstm_forecaster.py`  
 **Pre-training:** `scripts/pretrain.py`  

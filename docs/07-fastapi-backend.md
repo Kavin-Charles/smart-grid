@@ -1,4 +1,4 @@
-# 🚀 FastAPI Backend
+# FastAPI Backend
 
 **Files:**
 - `backend/app/main.py` — Application entry point

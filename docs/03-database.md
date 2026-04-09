@@ -1,4 +1,4 @@
-# 🗄️ Database Layer
+# Database Layer
 
 **File:** `backend/app/services/db.py`  
 **Schema:** `db/init.sql`

@@ -1,4 +1,4 @@
-# ⚖️ Load Balancer
+# Load Balancer
 
 **File:** `backend/app/models/load_balancer.py`
 
@@ -35,9 +35,9 @@ Each meter is classified into one of three categories:
 
 | Utilization | Status | Meaning |
 |------------|--------|---------|
-| > 85% | 🔴 Overloaded | Risk of equipment tripping, needs load reduction |
-| 40% – 85% | 🟡 Normal | Healthy operating range |
-| < 40% | 🟢 Underloaded | Has spare capacity to absorb shifted load |
+| > 85% | Overloaded | Risk of equipment tripping, needs load reduction |
+| 40% – 85% | Normal | Healthy operating range |
+| < 40% | Underloaded | Has spare capacity to absorb shifted load |
 
 ---
 

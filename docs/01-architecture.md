@@ -1,4 +1,4 @@
-# 🏗️ Architecture Overview
+# Architecture Overview
 
 ## System Design
 
