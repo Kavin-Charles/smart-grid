@@ -46,8 +46,7 @@ export default function AlertPanel({ alerts }) {
     <div className="alert-panel glass-card">
       <div className="section-header">
         <div className="section-header__title">
-          <span className="section-header__icon">🚨</span>
-          Anomaly Alerts
+          Automated Anomaly Detection — Z-Score Analysis
         </div>
         {alerts && alerts.length > 0 && (
           <span className={`section-header__badge ${
@@ -69,7 +68,6 @@ export default function AlertPanel({ alerts }) {
           </div>
         ) : (
           <div className="empty-state">
-            <span className="empty-state__icon">✅</span>
             <span>No active alerts</span>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>
               System operating normally

@@ -9,9 +9,9 @@ function getStatus(loadKw) {
 
 function getStatusLabel(status) {
   switch (status) {
-    case 'red': return '⚠ Overloaded';
-    case 'amber': return '⚡ High Load';
-    default: return '✓ Normal';
+    case 'red': return 'OVERLOADED';
+    case 'amber': return 'HIGH LOAD';
+    default: return 'NORMAL';
   }
 }
 
@@ -46,12 +46,10 @@ export default function GridMap({ meters }) {
       <div className="grid-map glass-card">
         <div className="section-header">
           <div className="section-header__title">
-            <span className="section-header__icon">🗺️</span>
-            Grid Topology
+            Live Substation Topology — Real-Time Telemetry
           </div>
         </div>
         <div className="empty-state">
-          <span className="empty-state__icon">🔌</span>
           <span>No meters online</span>
         </div>
       </div>
@@ -65,8 +63,7 @@ export default function GridMap({ meters }) {
     <div className="grid-map glass-card">
       <div className="section-header">
         <div className="section-header__title">
-          <span className="section-header__icon">🗺️</span>
-          Grid Topology
+          Live Substation Topology — Real-Time Telemetry
         </div>
         <div style={{ display: 'flex', gap: '6px' }}>
           {overloadCount > 0 && (

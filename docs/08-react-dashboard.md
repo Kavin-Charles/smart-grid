@@ -9,6 +9,12 @@
 
 The React dashboard is a **single-page application** that polls the FastAPI backend every 5 seconds and renders three visualization panels.
 
+![Dashboard Preview](./assets/dashboard_1.png)
+
+![Topology and Load Balancer](./assets/dashboard_2.png)
+
+*(You can also view a live recording format locally at `./assets/dashboard_demo.webp`)*
+
 ---
 
 ## Data Polling Architecture

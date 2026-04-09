@@ -97,12 +97,13 @@ export default function DemandChart({ liveData, forecastData }) {
     <div className="demand-chart glass-card">
       <div className="section-header">
         <div className="section-header__title">
-          <span className="section-header__icon">📈</span>
-          Demand Overview
+          AI Demand Forecast — LSTM Neural Network
         </div>
         {stats && (
-          <div className="section-header__badge">
-            Total: {stats.totalLoad.toFixed(0)} kW
+          <div style={{ display: 'flex', gap: '6px' }}>
+            <span className="section-header__badge">Avg {stats.avgLoad.toFixed(0)} kW</span>
+            <span className="section-header__badge">Peak {stats.peakLoad.toFixed(0)} kW</span>
+            <span className="section-header__badge">{liveData?.length || 0} Meters</span>
           </div>
         )}
       </div>
@@ -201,8 +202,7 @@ export default function DemandChart({ liveData, forecastData }) {
           </ResponsiveContainer>
         ) : (
           <div className="empty-state">
-            <span className="empty-state__icon">📊</span>
-            <span>Waiting for data...</span>
+            <span>Waiting for sensor data...</span>
           </div>
         )}
       </div>

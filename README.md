@@ -10,6 +10,9 @@ The AI Smart Grid Optimization platform is an advanced software solution designe
 - **Intelligent Load Balancing**: Automatically analyzes capacity across all monitored zones and generates actionable recommendations to shift loads from overloaded areas to those with spare capacity.
 - **Interactive Dashboard**: A responsive, live-updating interface that visualizes grid health, upcoming demand forecasts, and critical alerts in an easy-to-read format.
 
+![Smart Grid Dashboard](./docs/assets/dashboard_1.png)
+
+
 ## Documentation
 
 For technical details, architectural diagrams, API references, and infrastructure setup instructions, please refer to the dedicated documentation directory.
