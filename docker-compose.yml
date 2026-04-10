@@ -62,6 +62,7 @@ services:
       MQTT_PORT: 1883
       MODEL_WEIGHTS_PATH: /app/model_weights/lstm.pt
       FRONTEND_ORIGIN: http://localhost:3000
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     volumes:
       - ./model_weights:/app/model_weights
     depends_on:

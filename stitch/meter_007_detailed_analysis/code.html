@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#dfe2f1",
+                    "inverse-primary": "#00677e",
+                    "inverse-surface": "#dfe2f1",
+                    "on-tertiary-container": "#005d2d",
+                    "secondary-fixed": "#f0dbff",
+                    "surface-dim": "#0f131e",
+                    "primary": "#a8e8ff",
+                    "on-surface": "#dfe2f1",
+                    "outline-variant": "#3c494e",
+                    "on-primary": "#003642",
+                    "on-tertiary": "#003919",
+                    "surface-variant": "#303540",
+                    "on-secondary-container": "#d6a9ff",
+                    "on-error-container": "#ffdad6",
+                    "primary-fixed": "#b4ebff",
+                    "on-secondary": "#490080",
+                    "tertiary": "#00ff88",
+                    "surface-container-lowest": "#0a0e18",
+                    "surface-container": "#1b1f2a",
+                    "primary-container": "#00d4ff",
+                    "on-tertiary-fixed": "#00210c",
+                    "secondary-container": "#6f00be",
+                    "secondary-fixed-dim": "#ddb7ff",
+                    "on-error": "#690005",
+                    "surface-container-high": "#252a35",
+                    "on-surface-variant": "#bbc9cf",
+                    "on-secondary-fixed": "#2c0051",
+                    "primary-fixed-dim": "#3cd7ff",
+                    "on-tertiary-fixed-variant": "#005228",
+                    "outline": "#859398",
+                    "error-container": "#93000a",
+                    "tertiary-container": "#00df76",
+                    "surface-tint": "#3cd7ff",
+                    "inverse-on-surface": "#2c303c",
+                    "secondary": "#ddb7ff",
+                    "on-primary-fixed-variant": "#004e5f",
+                    "on-secondary-fixed-variant": "#6900b3",
+                    "tertiary-fixed-dim": "#00e479",
+                    "error": "#ffb4ab",
+                    "on-primary-container": "#00586b",
+                    "surface-container-highest": "#303540",
+                    "on-primary-fixed": "#001f27",
+                    "tertiary-fixed": "#60ff99",
+                    "background": "#0f131e",
+                    "surface": "#0f131e",
+                    "surface-bright": "#353945",
+                    "surface-container-low": "#171b26"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ai-pulse {
+            border: 1px solid #6f00be;
+            box-shadow: 0 0 40px rgba(221, 183, 255, 0.04);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .data-text {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="bg-surface-dim text-on-surface font-body selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full h-14 z-50 bg-slate-950/65 backdrop-blur-lg flex justify-between items-center px-6 w-full">
+<div class="text-xl font-semibold tracking-tighter text-cyan-400 flex items-center gap-2 font-['Inter'] antialiased tracking-tight">
+<span class="material-symbols-outlined">bolt</span>
+<span>SMART GRID</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-400 font-['Inter'] antialiased tracking-tight hover:bg-white/5 transition-colors px-3 py-1 rounded" href="#">Overview</a>
+<a class="text-cyan-400 font-bold border-b-2 border-cyan-400 pb-1 font-['Inter'] antialiased tracking-tight hover:bg-white/5 transition-colors" href="#">Grid Assets</a>
+<a class="text-slate-400 font-['Inter'] antialiased tracking-tight hover:bg-white/5 transition-colors px-3 py-1 rounded" href="#">Analytics</a>
+</div>
+<div class="flex items-center gap-4 text-sm">
+<span class="text-slate-400 font-['Inter']">user@grid.com</span>
+<button class="text-cyan-400 border border-cyan-400/30 px-3 py-1 rounded-lg hover:bg-cyan-400/10 transition-all font-['Inter']">Sign out</button>
+</div>
+</nav>
+<!-- SideNavBar (Suppressed for focused detail view) -->
+<!-- Navigation shell suppressed as per "The Destination Rule" for task-focused detail screens -->
+<main class="pt-20 pb-12 px-6 max-w-[1400px] mx-auto min-h-screen">
+<!-- Header & Breadcrumb -->
+<div class="mb-10">
+<nav class="flex items-center gap-2 text-xs font-medium tracking-widest text-on-surface-variant uppercase mb-4">
+<span>Dashboard</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-primary">meter_007</span>
+</nav>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<button class="flex items-center gap-2 text-primary hover:text-primary-container transition-colors mb-4 group">
+<span class="material-symbols-outlined text-sm group-hover:-translate-x-1 duration-200">arrow_back</span>
+<span class="text-xs font-bold tracking-widest uppercase">Back to dashboard</span>
+</button>
+<div class="flex items-center gap-4">
+<h1 class="text-5xl font-extrabold tracking-tighter text-on-surface">METER 007</h1>
+<span class="px-3 py-1 bg-error-container/20 border border-error/30 text-error text-[10px] font-bold tracking-widest rounded-full flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                            CRITICAL
+                        </span>
+</div>
+<p class="text-on-surface-variant mt-2 text-sm max-w-xl">Substation Delta / Primary Distribution Node. Last synchronized 42 seconds ago.</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-highest border border-outline-variant/30 px-4 py-2 rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-surface-bright transition-colors">Export Logs</button>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-xl text-xs font-bold tracking-widest uppercase hover:shadow-[0_0_15px_rgba(0,212,255,0.3)] transition-all">Emergency Shutoff</button>
+</div>
+</div>
+</div>
+<!-- Metric Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+<!-- Load Card -->
+<div class="glass-panel p-6 rounded-2xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-error/5 blur-3xl -mr-16 -mt-16"></div>
+<div class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase mb-4 flex justify-between items-center">
+                    Current Load
+                    <span class="material-symbols-outlined text-error text-sm">trending_up</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-semibold text-error data-text">823</span>
+<span class="text-on-surface-variant font-medium">kW</span>
+</div>
+<div class="mt-4 h-1 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-error w-[92%]"></div>
+</div>
+</div>
+<!-- Voltage Card -->
+<div class="glass-panel p-6 rounded-2xl">
+<div class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase mb-4 flex justify-between items-center">
+                    Grid Voltage
+                    <span class="material-symbols-outlined text-tertiary text-sm">check_circle</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-semibold text-on-surface data-text">228.4</span>
+<span class="text-on-surface-variant font-medium">V</span>
+</div>
+<div class="mt-4 text-[10px] text-tertiary font-bold tracking-widest flex items-center gap-1 uppercase">
+<span class="w-1 h-1 rounded-full bg-tertiary"></span> Nominal Range
+                </div>
+</div>
+<!-- Frequency Card -->
+<div class="glass-panel p-6 rounded-2xl relative">
+<div class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase mb-4 flex justify-between items-center">
+                    Frequency
+                    <span class="material-symbols-outlined text-error text-sm">warning</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-semibold text-error data-text">49.2</span>
+<span class="text-on-surface-variant font-medium">Hz</span>
+</div>
+<div class="mt-4 text-[10px] text-error font-bold tracking-widest uppercase">
+                    Below Threshold (49.5)
+                </div>
+</div>
+<!-- Power Factor Card -->
+<div class="glass-panel p-6 rounded-2xl">
+<div class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase mb-4 flex justify-between items-center">
+                    Power Factor
+                    <span class="material-symbols-outlined text-primary text-sm">bolt</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-semibold text-on-surface data-text">0.91</span>
+<span class="text-on-surface-variant font-medium">cosφ</span>
+</div>
+<div class="mt-4 flex gap-1">
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-surface-container-low rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Central Visualization Arc -->
+<div class="glass-panel p-8 rounded-2xl mb-8 relative">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-xs font-bold tracking-widest uppercase text-on-surface">24-HOUR LOAD HISTORY &amp; FORECAST</h3>
+<p class="text-on-surface-variant text-xs">Real-time data telemetry vs predictive modeling</p>
+</div>
+<div class="flex gap-4 items-center">
+<div class="flex items-center gap-2">
+<div class="w-3 h-1 bg-primary rounded-full"></div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">History</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-0.5 bg-secondary border-t border-dashed border-secondary rounded-full"></div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Forecast</span>
+</div>
+</div>
+</div>
+<div class="h-[300px] w-full relative flex items-end justify-between px-4 pb-4">
+<!-- Visual Chart Representation (using div-based bars/lines for complex UI feel) -->
+<div class="absolute inset-0 flex items-end justify-between px-10 pb-10 opacity-20">
+<div class="w-px h-full bg-outline-variant"></div>
+<div class="w-px h-full bg-outline-variant"></div>
+<div class="w-px h-full bg-outline-variant"></div>
+<div class="w-px h-full bg-outline-variant"></div>
+<div class="w-px h-full bg-outline-variant"></div>
+</div>
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 300">
+<!-- History Arc -->
+<path d="M0 300 C 100 280, 200 150, 300 180 S 400 50, 500 100 S 600 250, 750 150" fill="none" stroke="url(#blueGradient)" stroke-linecap="round" stroke-width="4"></path>
+<path d="M0 300 C 100 280, 200 150, 300 180 S 400 50, 500 100 S 600 250, 750 150 L 750 300 L 0 300 Z" fill="url(#areaGradient)"></path>
+<!-- Forecast Arc -->
+<path d="M750 150 C 800 80, 900 120, 1000 40" fill="none" stroke="#a855f7" stroke-dasharray="8 6" stroke-linecap="round" stroke-width="3"></path>
+<defs>
+<lineargradient id="blueGradient" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0%" stop-color="#00d4ff"></stop>
+<stop offset="100%" stop-color="#00677e"></stop>
+</lineargradient>
+<lineargradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="rgba(0, 212, 255, 0.2)"></stop>
+<stop offset="100%" stop-color="transparent"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute top-[140px] left-[740px] flex flex-col items-center">
+<div class="w-2 h-2 rounded-full bg-primary ring-4 ring-primary/20"></div>
+<div class="bg-primary text-on-primary-container text-[10px] font-bold px-2 py-1 rounded mt-2">NOW</div>
+</div>
+</div>
+<div class="flex justify-between mt-4 border-t border-outline-variant/10 pt-4 text-[10px] font-bold tracking-widest text-on-surface-variant uppercase">
+<span>00:00</span>
+<span>06:00</span>
+<span>12:00</span>
+<span>18:00</span>
+<span>23:59</span>
+</div>
+</div>
+<!-- Bottom Layout: Bento Split -->
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+<!-- Alert History Table -->
+<div class="lg:col-span-3 glass-panel p-6 rounded-2xl">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xs font-bold tracking-widest uppercase text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">history</span> ALERT HISTORY
+                    </h3>
+<button class="text-[10px] font-bold text-primary tracking-widest uppercase hover:underline">View Archive</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant/10">
+<th class="pb-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Timestamp</th>
+<th class="pb-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Type</th>
+<th class="pb-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Status</th>
+<th class="pb-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Action</th>
+</tr>
+</thead>
+<tbody class="text-xs font-medium">
+<tr class="border-b border-outline-variant/5">
+<td class="py-4 text-on-surface data-text">14:22:15</td>
+<td class="py-4 text-on-surface">Frequency Dip</td>
+<td class="py-4"><span class="px-2 py-0.5 rounded-full bg-error/10 text-error text-[9px] font-bold tracking-tighter uppercase border border-error/20">Active</span></td>
+<td class="py-4 text-primary">Acknowledge</td>
+</tr>
+<tr class="border-b border-outline-variant/5">
+<td class="py-4 text-on-surface data-text">12:05:42</td>
+<td class="py-4 text-on-surface">Phase Imbalance</td>
+<td class="py-4"><span class="px-2 py-0.5 rounded-full bg-on-surface-variant/10 text-on-surface-variant text-[9px] font-bold tracking-tighter uppercase">Resolved</span></td>
+<td class="py-4 text-on-surface-variant">—</td>
+</tr>
+<tr>
+<td class="py-4 text-on-surface data-text">09:15:00</td>
+<td class="py-4 text-on-surface">Routine Inspection</td>
+<td class="py-4"><span class="px-2 py-0.5 rounded-full bg-on-surface-variant/10 text-on-surface-variant text-[9px] font-bold tracking-tighter uppercase">Logged</span></td>
+<td class="py-4 text-on-surface-variant">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- AI Recommendation Container -->
+<div class="lg:col-span-2 glass-panel ai-pulse p-6 rounded-2xl flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<h3 class="text-xs font-bold tracking-widest uppercase text-secondary">AI LOAD BALANCE RECOMMENDATION</h3>
+</div>
+<div class="bg-secondary-container/10 p-4 rounded-xl border border-secondary/20 mb-6">
+<p class="text-sm leading-relaxed text-secondary-fixed">
+                            Current load at meter_007 exceeds nominal capacity by 12%. To prevent localized thermal degradation, <span class="font-bold text-secondary-fixed">Shift 52 kW to meter_006</span> via Inter-Node Connector B.
+                        </p>
+</div>
+<!-- Before/After Diagram -->
+<div class="space-y-4 mb-8">
+<div>
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant mb-1">
+<span>Current Balance</span>
+<span>823 kW / 412 kW</span>
+</div>
+<div class="h-3 flex gap-1">
+<div class="h-full bg-error w-[66%] rounded-sm"></div>
+<div class="h-full bg-surface-container-highest w-[34%] rounded-sm"></div>
+</div>
+</div>
+<div class="flex justify-center">
+<span class="material-symbols-outlined text-secondary text-lg">expand_more</span>
+</div>
+<div>
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant mb-1">
+<span>Proposed Balance</span>
+<span>771 kW / 464 kW</span>
+</div>
+<div class="h-3 flex gap-1">
+<div class="h-full bg-primary w-[62%] rounded-sm"></div>
+<div class="h-full bg-tertiary w-[38%] rounded-sm"></div>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full bg-tertiary text-on-tertiary-fixed font-extrabold tracking-widest uppercase text-xs py-4 rounded-xl hover:shadow-[0_0_25px_rgba(0,255,136,0.4)] transition-all">
+                    Apply recommendation
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed for Desktop, visible for Mobile if needed) -->
+<div class="md:hidden fixed bottom-0 left-0 w-full glass-panel h-16 flex justify-around items-center px-4 z-50">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[9px] font-bold uppercase">Overview</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-cyan-400 font-bold" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="text-[9px] font-bold uppercase">Assets</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-[9px] font-bold uppercase">Analytics</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">warning</span>
+<span class="text-[9px] font-bold uppercase">Alerts</span>
+</a>
+</div>
+</body></html>

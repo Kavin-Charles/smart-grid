@@ -7,7 +7,7 @@ All API request/response models with ISO 8601 timestamps.
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr, Field
 
 
 # ── Sensor Readings ────────────────────────────────────────────
@@ -119,3 +119,24 @@ class HealthResponse(BaseModel):
     status: str = "ok"
     version: str = "1.0.0"
     timestamp: datetime
+
+
+# ── Authentication ─────────────────────────────────────────────
+
+class LoginRequest(BaseModel):
+    """Login request body."""
+    email: str
+    password: str = Field(..., min_length=8)
+
+
+class UserResponse(BaseModel):
+    """Public user data (no password hash)."""
+    id: int
+    email: str
+
+
+class AuthResponse(BaseModel):
+    """Login success response."""
+    user: UserResponse
+    message: str
+

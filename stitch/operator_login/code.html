@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SMART GRID | Operator Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#dfe2f1",
+                        "inverse-primary": "#00677e",
+                        "inverse-surface": "#dfe2f1",
+                        "on-tertiary-container": "#005d2d",
+                        "secondary-fixed": "#f0dbff",
+                        "surface-dim": "#0f131e",
+                        "primary": "#a8e8ff",
+                        "on-surface": "#dfe2f1",
+                        "outline-variant": "#3c494e",
+                        "on-primary": "#003642",
+                        "on-tertiary": "#003919",
+                        "surface-variant": "#303540",
+                        "on-secondary-container": "#d6a9ff",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#b4ebff",
+                        "on-secondary": "#490080",
+                        "tertiary": "#00ff88",
+                        "surface-container-lowest": "#0a0e18",
+                        "surface-container": "#1b1f2a",
+                        "primary-container": "#00d4ff",
+                        "on-tertiary-fixed": "#00210c",
+                        "secondary-container": "#6f00be",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-error": "#690005",
+                        "surface-container-high": "#252a35",
+                        "on-surface-variant": "#bbc9cf",
+                        "on-secondary-fixed": "#2c0051",
+                        "primary-fixed-dim": "#3cd7ff",
+                        "on-tertiary-fixed-variant": "#005228",
+                        "outline": "#859398",
+                        "error-container": "#93000a",
+                        "tertiary-container": "#00df76",
+                        "surface-tint": "#3cd7ff",
+                        "inverse-on-surface": "#2c303c",
+                        "secondary": "#ddb7ff",
+                        "on-primary-fixed-variant": "#004e5f",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "tertiary-fixed-dim": "#00e479",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#00586b",
+                        "surface-container-highest": "#303540",
+                        "on-primary-fixed": "#001f27",
+                        "tertiary-fixed": "#60ff99",
+                        "background": "#0f131e",
+                        "surface": "#0f131e",
+                        "surface-bright": "#353945",
+                        "surface-container-low": "#171b26"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #060a14;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .kinetic-pulse-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 0% 0%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen text-on-surface">
+<!-- Ambient Background Effects -->
+<div class="kinetic-pulse-bg"></div>
+<!-- Navigation Suppression: Transactional Screen (Login) - No TopNavBar or SideNavBar rendered -->
+<main class="relative z-10">
+<!-- Main Login Card -->
+<div class="glass-card w-[400px] h-[420px] rounded-xl flex flex-col items-center justify-between p-10 shadow-2xl">
+<!-- Header Section -->
+<div class="flex flex-col items-center gap-2">
+<div class="text-primary-container mb-2">
+<span class="material-symbols-outlined !text-[40px]" data-icon="bolt">bolt</span>
+</div>
+<h1 class="text-[28px] font-bold text-primary-container tracking-tighter uppercase">SMART GRID</h1>
+<p class="text-[13px] text-white/40 font-medium tracking-widest uppercase">Operator access</p>
+</div>
+<!-- Form Section -->
+<div class="w-full space-y-4">
+<!-- Error State -->
+<div class="flex justify-center">
+<div class="bg-error-container/20 text-error px-3 py-1 rounded-full flex items-center gap-2 border border-error/20">
+<span class="w-1 h-1 rounded-full bg-error"></span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Invalid credentials</span>
+</div>
+</div>
+<!-- Inputs -->
+<div class="space-y-3">
+<div class="relative group">
+<input class="w-full bg-surface-container-highest border-none rounded-lg py-3 px-4 text-on-surface-variant placeholder:text-outline focus:ring-2 focus:ring-primary-container transition-all duration-200 text-sm" placeholder="operator@company.com" type="email"/>
+</div>
+<div class="relative group">
+<input class="w-full bg-surface-container-highest border-none rounded-lg py-3 px-4 text-on-surface-variant placeholder:text-outline focus:ring-2 focus:ring-primary-container transition-all duration-200 text-sm" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined !text-xl" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Action -->
+<button class="w-full border border-primary-container text-primary-container rounded-lg py-3 font-semibold text-sm hover:bg-primary-container/10 transition-all duration-200 active:scale-95 shadow-[0_0_15px_rgba(0,212,255,0.1)]">
+                    Sign in
+                </button>
+</div>
+<!-- Footer Section -->
+<div class="text-center">
+<p class="text-[11px] text-outline leading-relaxed px-4">
+                    Contact your administrator for access
+                </p>
+</div>
+</div>
+<!-- Decorative Elements -->
+<div class="absolute -top-12 -left-12 w-32 h-32 bg-primary-container/5 blur-3xl rounded-full"></div>
+<div class="absolute -bottom-12 -right-12 w-32 h-32 bg-secondary-container/10 blur-3xl rounded-full"></div>
+</main>
+<!-- Visual Polish: Ghost Scanline -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]"></div>
+</body></html>

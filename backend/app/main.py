@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import grid, predictions
+from app.routers import auth, grid, predictions
 from app.schemas import HealthResponse
 from app.services.db import init_async_engine, close_async_engine
 
@@ -24,6 +24,13 @@ from app.services.db import init_async_engine, close_async_engine
 async def lifespan(app: FastAPI):
     """Application lifespan: initialize and cleanup resources."""
     # ── Startup ────────────────────────────────────────────
+    # Validate required environment variables
+    if not os.getenv("JWT_SECRET_KEY"):
+        raise RuntimeError(
+            "JWT_SECRET_KEY environment variable is required. "
+            "Set it to a random string of at least 32 characters."
+        )
+
     print("[API] Initializing async database engine...")
     init_async_engine()
     print("[API] Database engine ready")
@@ -64,6 +71,7 @@ app.add_middleware(
 )
 
 # ── Routers ────────────────────────────────────────────────────
+app.include_router(auth.router)
 app.include_router(grid.router)
 app.include_router(predictions.router)
 

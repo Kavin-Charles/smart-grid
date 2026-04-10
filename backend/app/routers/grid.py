@@ -10,6 +10,8 @@ from datetime import datetime, timezone, timedelta
 
 import redis.asyncio as aioredis
 from fastapi import APIRouter, Depends, Query
+
+from app.core.deps import get_current_user
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -44,7 +46,7 @@ async def get_redis() -> aioredis.Redis:
 # ── GET /api/grid/live ─────────────────────────────────────────
 
 @router.get("/live", response_model=LiveReadingsResponse)
-async def get_live_readings():
+async def get_live_readings(current_user=Depends(get_current_user)):
     """
     Returns the latest reading for each meter from Redis cache.
     This is the fastest path — no database query needed.
@@ -80,6 +82,7 @@ async def get_meter_history(
     meter_id: str,
     minutes: int = Query(default=60, ge=1, le=1440),
     db: AsyncSession = Depends(get_async_session),
+    current_user=Depends(get_current_user),
 ):
     """
     Returns recent readings for a specific meter from TimescaleDB.
@@ -120,6 +123,7 @@ async def get_meter_history(
 async def get_alerts(
     limit: int = Query(default=50, ge=1, le=200),
     db: AsyncSession = Depends(get_async_session),
+    current_user=Depends(get_current_user),
 ):
     """
     Returns recent unacknowledged alerts from TimescaleDB.
@@ -155,7 +159,7 @@ async def get_alerts(
 # ── GET /api/grid/stats ──────────────────────────────────────
 
 @router.get("/stats", response_model=GridStats)
-async def get_grid_stats():
+async def get_grid_stats(current_user=Depends(get_current_user)):
     """
     Returns aggregate stats from the latest Redis-cached readings.
     """

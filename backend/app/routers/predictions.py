@@ -12,6 +12,8 @@ from datetime import datetime, timezone, timedelta
 import numpy as np
 import redis.asyncio as aioredis
 from fastapi import APIRouter, Depends, HTTPException
+
+from app.core.deps import get_current_user
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -51,6 +53,7 @@ async def get_redis() -> aioredis.Redis:
 async def get_forecast(
     request: ForecastRequest,
     db: AsyncSession = Depends(get_async_session),
+    current_user=Depends(get_current_user),
 ):
     """
     Run LSTM inference to predict load for the next 30 minutes.
@@ -137,7 +140,7 @@ async def get_forecast(
 # ── GET /api/predictions/balance ──────────────────────────────
 
 @router.get("/balance", response_model=LoadBalanceResponse)
-async def get_load_balance():
+async def get_load_balance(current_user=Depends(get_current_user)):
     """
     Analyze current load distribution and return redistribution recommendations.
     Reads current loads from Redis cache.

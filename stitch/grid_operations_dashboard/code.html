@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SMART GRID - Operations Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#dfe2f1",
+                        "inverse-primary": "#00677e",
+                        "inverse-surface": "#dfe2f1",
+                        "on-tertiary-container": "#005d2d",
+                        "secondary-fixed": "#f0dbff",
+                        "surface-dim": "#0f131e",
+                        "primary": "#a8e8ff",
+                        "on-surface": "#dfe2f1",
+                        "outline-variant": "#3c494e",
+                        "on-primary": "#003642",
+                        "on-tertiary": "#003919",
+                        "surface-variant": "#303540",
+                        "on-secondary-container": "#d6a9ff",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#b4ebff",
+                        "on-secondary": "#490080",
+                        "tertiary": "#00ff88",
+                        "surface-container-lowest": "#0a0e18",
+                        "surface-container": "#1b1f2a",
+                        "primary-container": "#00d4ff",
+                        "on-tertiary-fixed": "#00210c",
+                        "secondary-container": "#6f00be",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-error": "#690005",
+                        "surface-container-high": "#252a35",
+                        "on-surface-variant": "#bbc9cf",
+                        "on-secondary-fixed": "#2c0051",
+                        "primary-fixed-dim": "#3cd7ff",
+                        "on-tertiary-fixed-variant": "#005228",
+                        "outline": "#859398",
+                        "error-container": "#93000a",
+                        "tertiary-container": "#00df76",
+                        "surface-tint": "#3cd7ff",
+                        "inverse-on-surface": "#2c303c",
+                        "secondary": "#ddb7ff",
+                        "on-primary-fixed-variant": "#004e5f",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "tertiary-fixed-dim": "#00e479",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#00586b",
+                        "surface-container-highest": "#303540",
+                        "on-primary-fixed": "#001f27",
+                        "tertiary-fixed": "#60ff99",
+                        "background": "#0f131e",
+                        "surface": "#0f131e",
+                        "surface-bright": "#353945",
+                        "surface-container-low": "#171b26"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f131e; color: #dfe2f1; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(16px); border-top: 1px solid rgba(255, 255, 255, 0.08); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface-dim selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full h-14 z-50 bg-slate-950/65 backdrop-blur-lg flex justify-between items-center px-6 w-full font-['Inter'] antialiased tracking-tight">
+<div class="text-xl font-semibold tracking-tighter text-cyan-400 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+<span>SMART GRID</span>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<div class="flex items-center gap-2 bg-tertiary/10 px-3 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#00ff88]"></span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-tertiary">Connected</span>
+</div>
+<div class="flex items-center gap-2 bg-primary-container/10 px-3 py-1 rounded-full">
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary-container">10 meters active</span>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container/20 px-3 py-1 rounded-full border border-secondary-container/30">
+<span class="text-[10px] font-bold uppercase tracking-wider text-secondary">AI model active</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-slate-400 text-sm font-medium">user@grid.com</span>
+<button class="bg-white/5 hover:bg-white/10 text-cyan-400 text-xs font-bold uppercase px-4 py-2 rounded transition-colors duration-150 scale-95">Sign out</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="h-full w-64 fixed left-0 top-14 bg-slate-950/80 backdrop-blur-xl flex flex-col py-8 gap-4 z-40 hidden md:flex">
+<div class="px-6 mb-4">
+<h3 class="font-['Inter'] uppercase tracking-widest text-[10px] font-bold text-slate-400">OPERATIONS</h3>
+<p class="text-cyan-400 text-xs font-medium">Substation Delta</p>
+</div>
+<nav class="flex flex-col">
+<a class="flex items-center gap-3 px-6 py-3 text-cyan-400 border-r-2 border-cyan-400 bg-cyan-400/5 translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] uppercase tracking-widest text-[10px] font-bold">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 hover:text-cyan-200 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-['Inter'] uppercase tracking-widest text-[10px] font-bold">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 hover:text-cyan-200 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="font-['Inter'] uppercase tracking-widest text-[10px] font-bold">Grid Assets</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 hover:text-cyan-200 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span class="font-['Inter'] uppercase tracking-widest text-[10px] font-bold">System Alerts</span>
+</a>
+</nav>
+<div class="mt-auto px-6 pb-20">
+<div class="p-4 rounded-xl glass-card bg-secondary-container/10 border border-secondary/20">
+<p class="text-[10px] font-bold text-secondary mb-1">SYSTEM OPERATOR</p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional system engineer in a tech environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfrJBG8BYviT_OgAKGW5qI2vkJAvzhy62-Pj2UxJ_WkNj8gwFnKoPmMqHbTCRip5eweJ6eKSsGTlbcRD9WVmjgUqLj1CxSqOC0f7GTCnQ0dnstuA0peCIq31QfTwTzL5Baf6FM5pXZD3IRFMIIqjNnUoWx-iVRe1WDcOP3ecTujl2yAzZSJ_rPOjuCZiQl-vYfXSdX_xiKF7nLVYwELQsKM_lDReHMsKuZ3a1xEjbI4bV7hZOKHQ_RGhwM8Nv8PSf-hUCFO-OfAHc"/>
+</div>
+<span class="text-xs font-semibold text-on-surface">Admin Mode</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-20 pb-12 px-8 min-h-screen">
+<!-- Top Section: Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+<div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+<span class="text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">SECTION 01 // TOTAL LOAD</span>
+<div class="mt-4">
+<h2 class="text-4xl font-semibold tracking-tighter text-on-surface">5,420 <span class="text-lg font-normal text-on-surface-variant">kW</span></h2>
+<p class="text-xs text-tertiary mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span> 1.2% from last hour
+                    </p>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl flex flex-col justify-between border-l-2 border-error">
+<span class="text-[10px] font-bold text-error tracking-widest uppercase">CRITICAL // PEAK METER</span>
+<div class="mt-4">
+<h2 class="text-4xl font-semibold tracking-tighter text-error">890 <span class="text-lg font-normal opacity-70">kW</span></h2>
+<p class="text-xs text-error mt-1">Threshold exceeded at Node 07</p>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl flex flex-col justify-between border-l-2 border-secondary">
+<span class="text-[10px] font-bold text-secondary tracking-widest uppercase">AI PREDICTION // FORECAST</span>
+<div class="mt-4">
+<h2 class="text-4xl font-semibold tracking-tighter text-on-surface">5,610 <span class="text-lg font-normal text-on-surface-variant">kW</span></h2>
+<p class="text-xs text-secondary mt-1">Peak expected in T+30 min</p>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl flex flex-col justify-between border border-tertiary shadow-[0_0_25px_rgba(0,255,136,0.1)]">
+<span class="text-[10px] font-bold text-tertiary tracking-widest uppercase">OPTIMIZATION // SAVINGS</span>
+<div class="mt-4">
+<h2 class="text-4xl font-extrabold tracking-tighter text-tertiary">₹12,400</h2>
+<p class="text-xs text-on-surface-variant mt-1">Daily offset savings achieved</p>
+</div>
+</div>
+</div>
+<!-- Middle Section: Chart -->
+<div class="glass-card p-8 rounded-xl mb-8 relative overflow-hidden">
+<div class="flex justify-between items-center mb-10">
+<div>
+<h3 class="text-xl font-semibold tracking-tight text-on-surface">Demand Overview</h3>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest">Real-time vs Predictive analytics</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-0.5 bg-primary"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">ACTUAL</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-0.5 border-t border-dashed border-secondary"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">PREDICTED</span>
+</div>
+</div>
+</div>
+<div class="h-64 w-full flex items-end gap-1 relative">
+<!-- Simple stylized svg chart background -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 100">
+<!-- Actual Path -->
+<path d="M0,80 Q100,75 200,60 T400,40 T600,70 T800,20 L1000,30" fill="none" stroke="#00d4ff" stroke-width="3"></path>
+<!-- Predicted Path -->
+<path d="M800,20 Q850,15 900,10 T1000,5" fill="none" stroke="#a855f7" stroke-dasharray="6,4" stroke-width="3"></path>
+<!-- Background Glow -->
+<path d="M0,80 Q100,75 200,60 T400,40 T600,70 T800,20 L1000,30 L1000,100 L0,100 Z" fill="url(#grad1)" opacity="0.1"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
+<div class="border-t border-on-surface"></div>
+<div class="border-t border-on-surface"></div>
+<div class="border-t border-on-surface"></div>
+<div class="border-t border-on-surface"></div>
+</div>
+</div>
+</div>
+<!-- Bottom Grid: Topology & Alerts -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Grid Topology -->
+<div class="lg:col-span-2">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-sm font-bold uppercase tracking-widest text-on-surface">Grid Topology <span class="text-primary-container ml-2 text-xs font-medium tracking-normal normal-case">Substation Delta / 10 Nodes</span></h3>
+<button class="text-xs font-bold text-primary-container flex items-center gap-1 hover:underline">
+                        Load balancer <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+<!-- Meter Cards -->
+<div class="glass-card p-4 rounded-xl border-l-2 border-primary-container cursor-pointer hover:bg-white/5 transition-all">
+<p class="text-[10px] font-bold text-on-surface-variant mb-2">METER_001</p>
+<p class="text-xl font-semibold">452<span class="text-[10px] ml-1">kW</span></p>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-2 border-primary-container cursor-pointer hover:bg-white/5 transition-all">
+<p class="text-[10px] font-bold text-on-surface-variant mb-2">METER_002</p>
+<p class="text-xl font-semibold">510<span class="text-[10px] ml-1">kW</span></p>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-4 border-error shadow-[0_0_15px_rgba(255,59,92,0.2)] animate-pulse cursor-pointer">
+<p class="text-[10px] font-bold text-error mb-2">METER_003</p>
+<p class="text-xl font-semibold text-error">890<span class="text-[10px] ml-1">kW</span></p>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-2 border-primary-container cursor-pointer hover:bg-white/5 transition-all">
+<p class="text-[10px] font-bold text-on-surface-variant mb-2">METER_004</p>
+<p class="text-xl font-semibold">390<span class="text-[10px] ml-1">kW</span></p>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-2 border-primary-container cursor-pointer hover:bg-white/5 transition-all">
+<p class="text-[10px] font-bold text-on-surface-variant mb-2">METER_005</p>
+<p class="text-xl font-semibold">415<span class="text-[10px] ml-1">kW</span></p>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-2 border-primary-container cursor-pointer hover:bg-white/5 transition-all">
+<p class="text-[10px] font-bold text-on-surface-variant mb-2">METER_006</p>
+<p class="text-xl font-semibold">478<span class="text-[10px] ml-1">kW</span></p>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-4 border-error shadow-[0_0_15px_rgba(255,59,92,0.2)] animate-pulse cursor-pointer">
+<p class="text-[10px] font-bold text-error mb-2">METER_007</p>
+<p class="text-xl font-semibold text-error">845<span class="text-[10px] ml-1">kW</span></p>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-2 border-primary-container cursor-pointer hover:bg-white/5 transition-all">
+<p class="text-[10px] font-bold text-on-surface-variant mb-2">METER_008</p>
+<p class="text-xl font-semibold">520<span class="text-[10px] ml-1">kW</span></p>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-2 border-primary-container cursor-pointer hover:bg-white/5 transition-all">
+<p class="text-[10px] font-bold text-on-surface-variant mb-2">METER_009</p>
+<p class="text-xl font-semibold">460<span class="text-[10px] ml-1">kW</span></p>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-2 border-primary-container cursor-pointer hover:bg-white/5 transition-all">
+<p class="text-[10px] font-bold text-on-surface-variant mb-2">METER_010</p>
+<p class="text-xl font-semibold">450<span class="text-[10px] ml-1">kW</span></p>
+</div>
+</div>
+</div>
+<!-- Anomaly Alerts -->
+<div>
+<h3 class="text-sm font-bold uppercase tracking-widest text-on-surface mb-6">Anomaly Alerts</h3>
+<div class="space-y-4">
+<div class="bg-secondary-container/10 border border-secondary/30 p-4 rounded-xl relative overflow-hidden">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="auto_awesome">auto_awesome</span>
+<div>
+<p class="text-[10px] font-bold text-secondary tracking-wider uppercase">AI Insight</p>
+<p class="text-xs font-semibold text-on-surface">Predictive overload at Substation Delta in 28 mins.</p>
+<p class="text-[10px] text-on-surface-variant mt-1">Confidence 94.2%</p>
+</div>
+</div>
+<!-- Decorative glow for AI Insight Container -->
+<div class="absolute -right-10 -bottom-10 w-24 h-24 bg-secondary/10 blur-2xl rounded-full"></div>
+</div>
+<div class="bg-error-container/10 border border-error/30 p-4 rounded-xl">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error" data-icon="report">report</span>
+<div>
+<p class="text-[10px] font-bold text-error tracking-wider uppercase">Critical Alert</p>
+<p class="text-xs font-semibold text-on-surface">Phase imbalance detected on METER_003.</p>
+<p class="text-[10px] text-on-surface-variant mt-1">Immediate intervention required.</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-high border border-outline-variant p-4 rounded-xl">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-warning" data-icon="warning" style="color: #f59e0b;">warning</span>
+<div>
+<p class="text-[10px] font-bold text-warning tracking-wider uppercase" style="color: #f59e0b;">System Warning</p>
+<p class="text-xs font-semibold text-on-surface">External temperature at Transformer B high.</p>
+<p class="text-[10px] text-on-surface-variant mt-1">Status: Stable at 84°C</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-16 bg-slate-950/90 backdrop-blur-xl flex justify-around items-center z-50 border-t border-white/5">
+<a class="flex flex-col items-center text-cyan-400" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[8px] font-bold uppercase mt-1">Overview</span>
+</a>
+<a class="flex flex-col items-center text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="text-[8px] font-bold uppercase mt-1">Analytics</span>
+</a>
+<a class="flex flex-col items-center text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="text-[8px] font-bold uppercase mt-1">Assets</span>
+</a>
+<a class="flex flex-col items-center text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span class="text-[8px] font-bold uppercase mt-1">Alerts</span>
+</a>
+</nav>
+<!-- Background Decoration -->
+<div class="fixed inset-0 pointer-events-none -z-10">
+<div class="absolute top-[10%] left-[5%] w-96 h-96 bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-secondary/5 blur-[150px] rounded-full"></div>
+</div>
+</body></html>

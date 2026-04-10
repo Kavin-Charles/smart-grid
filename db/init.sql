@@ -36,3 +36,17 @@ CREATE INDEX IF NOT EXISTS idx_alerts_time
 
 CREATE INDEX IF NOT EXISTS idx_alerts_meter
     ON alerts (meter_id, time DESC);
+
+-- ── Users table for authentication ──────────────────────────
+CREATE TABLE IF NOT EXISTS users (
+    id              SERIAL PRIMARY KEY,
+    email           TEXT UNIQUE NOT NULL,
+    hashed_password TEXT NOT NULL,
+    is_active       BOOLEAN DEFAULT TRUE,
+    created_at      TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Seed default admin (password: Admin@123)
+INSERT INTO users (email, hashed_password)
+VALUES ('admin@smartgrid.local', '$2b$12$kmN80nPBo67Sm3XALlqfbeRBBU5zCYmaxDOyghezlTa0bNwmYNrAe')
+ON CONFLICT (email) DO NOTHING;

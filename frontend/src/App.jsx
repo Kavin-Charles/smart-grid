@@ -1,4 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import Login from './pages/Login';
 import KPICards from './components/KPICards';
 import DemandChart from './components/DemandChart';
 import GridMap from './components/GridMap';
@@ -6,10 +10,15 @@ import AlertPanel from './components/AlertPanel';
 import LoadBalancePanel from './components/LoadBalancePanel';
 import './index.css';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 const POLL_INTERVAL = 5000;
 
-export default function App() {
+/**
+ * Dashboard — the existing grid dashboard, now protected by auth.
+ * All fetch calls use authFetch to include cookies and handle 401.
+ */
+function Dashboard() {
+  const { authFetch, user, logout } = useAuth();
   const [liveData, setLiveData] = useState([]);
   const [forecastData, setForecastData] = useState(null);
   const [alerts, setAlerts] = useState([]);
@@ -19,7 +28,7 @@ export default function App() {
 
   const fetchLiveData = useCallback(async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/grid/live`);
+      const res = await authFetch(`${API_BASE}/api/grid/live`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setLiveData(data.meters || []);
@@ -30,12 +39,12 @@ export default function App() {
       setIsConnected(false);
       setError(err.message);
     }
-  }, []);
+  }, [authFetch]);
 
   const fetchForecast = useCallback(async () => {
     try {
       const meterToForecast = 'meter_001';
-      const res = await fetch(`${API_BASE}/api/predictions/forecast`, {
+      const res = await authFetch(`${API_BASE}/api/predictions/forecast`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ meter_id: meterToForecast, lookback_minutes: 10 }),
@@ -49,18 +58,18 @@ export default function App() {
     } catch {
       // silent
     }
-  }, []);
+  }, [authFetch]);
 
   const fetchAlerts = useCallback(async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/grid/alerts?limit=50`);
+      const res = await authFetch(`${API_BASE}/api/grid/alerts?limit=50`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setAlerts(data.alerts || []);
     } catch {
       // silent
     }
-  }, []);
+  }, [authFetch]);
 
   useEffect(() => {
     fetchLiveData();
@@ -118,6 +127,24 @@ export default function App() {
               {error}
             </div>
           )}
+
+          {/* User info & Logout */}
+          <div className="header__user" id="header-user">
+            <span className="header__user-email">{user?.email}</span>
+            <button
+              className="header__logout-btn"
+              onClick={logout}
+              title="Sign out"
+              id="logout-btn"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              <span>Logout</span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -139,5 +166,28 @@ export default function App() {
         </div>
       </main>
     </div>
+  );
+}
+
+
+/**
+ * App — Root component with routing.
+ * AuthProvider wraps everything to provide auth state.
+ */
+export default function App() {
+  return (
+    <AuthProvider>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </AuthProvider>
   );
 }
