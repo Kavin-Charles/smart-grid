@@ -34,6 +34,3 @@ docker compose up --build
 ```
 
 Once running, access the operator dashboard at `http://localhost:3000`.
-
-## License
-Proprietary software. Internal use only.
