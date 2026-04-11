@@ -158,21 +158,33 @@ async def get_meter_history(
 @router.get("/alerts", response_model=AlertsResponse)
 async def get_alerts(
     limit: int = Query(default=50, ge=1, le=200),
+    meter_id: str | None = Query(default=None),
     db: AsyncSession = Depends(get_async_session),
+    current_user=Depends(get_current_user),
 ):
-    result = await db.execute(
-        text("""
-            SELECT id, time, meter_id, alert_type, message, severity, acknowledged
-            FROM alerts
-            WHERE acknowledged = FALSE
-            ORDER BY time DESC
-            LIMIT :limit
-        """),
-        {"limit": limit},
-    )
+    query = """
+        SELECT id, time, meter_id, alert_type, message, severity, acknowledged
+        FROM alerts
+        WHERE acknowledged = FALSE
+    """
+    params = {"limit": limit}
+    
+    if meter_id:
+        query += " AND meter_id = :meter_id"
+        params["meter_id"] = meter_id
+        
+    query += " ORDER BY time DESC LIMIT :limit"
+
+    result = await db.execute(text(query), params)
 ```
 
-Only returns **unacknowledged** alerts, sorted by most recent first.
+Only returns **unacknowledged** alerts, sorted by most recent first. The `meter_id` query parameter is used by the `MeterDetail` view to show alerts specific to one meter.
+
+---
+
+### `PATCH /api/grid/alerts/{alert_id}/acknowledge` — Dismiss Alert
+
+Marks a specific alert as acknowledged so it no longer appears in the active alert feed for operators. Returns `{ "id": alert_id, "acknowledged": True }`.
 
 ---
 
@@ -263,6 +275,7 @@ FastAPI automatically generates interactive API docs. Once running:
 | GET | `/api/grid/live` | Redis | < 1ms |
 | GET | `/api/grid/history/{meter_id}` | TimescaleDB | 5-20ms |
 | GET | `/api/grid/alerts` | TimescaleDB | 5-10ms |
+| PATCH | `/api/grid/alerts/{alert_id}/acknowledge` | TimescaleDB | < 5ms |
 | GET | `/api/grid/stats` | Redis | < 1ms |
 | POST | `/api/predictions/forecast` | TimescaleDB + LSTM | 15-50ms |
 | GET | `/api/predictions/balance` | Redis + Algorithm | < 5ms |

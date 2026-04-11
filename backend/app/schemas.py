@@ -140,3 +140,7 @@ class AuthResponse(BaseModel):
     user: UserResponse
     message: str
 
+
+class AcknowledgeResponse(BaseModel):
+    id: int
+    acknowledged: bool

@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const CAPACITY_KW = 900;
 
 function getStatus(loadKw) {
@@ -18,9 +21,24 @@ function getStatusLabel(status) {
 function MeterCard({ meter }) {
   const status = getStatus(meter.load_kw);
   const utilization = ((meter.load_kw / CAPACITY_KW) * 100).toFixed(0);
+  const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className={`meter-card meter-card--${status}`}>
+    <div 
+      className={`meter-card meter-card--${status}`}
+      onClick={() => navigate(`/meter/${meter.meter_id}`)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        cursor: 'pointer',
+        transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+        ...(isHovered ? {
+          borderColor: 'rgba(0,212,255,0.35)',
+          boxShadow: '0 0 12px rgba(0,212,255,0.08)'
+        } : {})
+      }}
+    >
       <div className="meter-card__id">{meter.meter_id}</div>
       <div className={`meter-card__load meter-card__load--${status}`}>
         {meter.load_kw.toFixed(0)}

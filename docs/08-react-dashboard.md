@@ -1,13 +1,14 @@
 # React Dashboard
 
 **Files:**
-- `frontend/src/App.jsx` — Main layout + polling logic
+- `frontend/src/App.jsx` — Main layout + React Router routes
+- `frontend/src/pages/MeterDetail.jsx` — Drill-down detailed view
 - `frontend/src/components/DemandChart.jsx` — Real-time line chart
-- `frontend/src/components/GridMap.jsx` — Meter status cards
-- `frontend/src/components/AlertPanel.jsx` — Anomaly alert feed
+- `frontend/src/components/GridMap.jsx` — Meter status cards (clickable)
+- `frontend/src/components/AlertPanel.jsx` — Anomaly alert feed (dismissible)
 - `frontend/src/index.css` — Design system
 
-The React dashboard is a **single-page application** that polls the FastAPI backend every 5 seconds and renders three visualization panels.
+The React dashboard is a **single-page application** routed via `react-router-dom` that polls the FastAPI backend every 5 seconds and renders visualization panels, along with individual meter drill-down details.
 
 ![Dashboard Preview](./assets/dashboard_1.png)
 
@@ -19,11 +20,24 @@ The React dashboard is a **single-page application** that polls the FastAPI back
 
 ## Data Polling Architecture
 
-The dashboard uses a simple **polling** pattern (not WebSockets) to keep data fresh:
+The dashboard uses a simple **polling** pattern (not WebSockets) alongside React Router to keep data fresh:
 
 ```jsx
 // In App.jsx
 export default function App() {
+  return (
+    <AuthProvider>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/meter/:meterId" element={<ProtectedRoute><MeterDetail /></ProtectedRoute>} />
+      </Routes>
+    </AuthProvider>
+  );
+}
+
+// Inside Dashboard component
+function Dashboard() {
   const [liveData, setLiveData] = useState([]);
   const [forecastData, setForecastData] = useState(null);
   const [alerts, setAlerts] = useState([]);

@@ -8,6 +8,7 @@ import DemandChart from './components/DemandChart';
 import GridMap from './components/GridMap';
 import AlertPanel from './components/AlertPanel';
 import LoadBalancePanel from './components/LoadBalancePanel';
+import MeterDetail from './pages/MeterDetail';
 import './index.css';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
@@ -184,6 +185,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/meter/:meterId"
+          element={
+            <ProtectedRoute>
+              <MeterDetail />
             </ProtectedRoute>
           }
         />
